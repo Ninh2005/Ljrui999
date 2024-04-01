@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+struct Date{
+  int day,month,year;  
+};
+struct BuuKien{
+  	int ma;
+    char nguoigui[50];
+    char nguoinhan[50];
+    float trongluong;
+    Date date;
+    char noidung[100];
+    int gia;
+};
+typedef BuuKien BK;
+bool KTra(BK n)
+{
+	if(n.date.year%4==0 && n.date.year%400==0 || n.date.year%100!=0)
+		return true;
+	return false;
+}
+bool KiemTraNgayHopLe(int day, int month, int year) {
+    if (month < 1 || month > 12) 
+        return false;
+
+    if (day < 1) 
+        return false;
+
+    if (month == 2) {
+        if (KTra((BK){0, "", "", 0, {day, month, year}, "", 0})) {
+            if (day > 29) 
+                return false;
+        } else {
+            if (day > 28) 
+                return false;
+        }
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        if (day > 30) 
+            return false;
+    } else {
+        if (day > 31) 
+            return false;
+    }
+
+    return true; 
+}
+void NhapCT(BK arr[], int n)
+{
+	for(int i=0;i<n;i++)
+	{
+    scanf("%d",&arr[i].ma);
+    getchar();
+    fgets(arr[i].nguoigui,50,stdin);
+    if(arr[i].nguoigui[strlen(arr[i].nguoigui)-1]=='\n')
+        arr[i].nguoigui[strlen(arr[i].nguoigui)-1]='\0';
+    fgets(arr[i].nguoinhan,50,stdin);
+    if(arr[i].nguoinhan[strlen(arr[i].nguoinhan)-1]=='\n')
+        arr[i].nguoinhan[strlen(arr[i].nguoinhan)-1]='\0';
+	scanf("%f",&arr[i].trongluong);
+    getchar();
+   	do
+	{
+            scanf("%d %d %d", &arr[i].date.day, &arr[i].date.month, &arr[i].date.year);
+            getchar();
+    } while (!KiemTraNgayHopLe(arr[i].date.day, arr[i].date.month, arr[i].date.year));
+    fgets(arr[i].noidung,100,stdin);
+    if(arr[i].noidung[strlen(arr[i].noidung)-1]=='\n')
+        arr[i].noidung[strlen(arr[i].noidung)-1]='\0';
+    scanf("%d",&arr[i].gia);
+    getchar(); }
+}
+
+void XuatCT(BK arr[], int n)
+{
+	for(int i=0;i<n;i++)
+	{
+	
+    	printf("%d\n",arr[i].ma);
+	}
+}
+void Xoa(BK arr[], int n, const char *x)
+{
+	int dem = 0;
+    for(int i =0;i<n;i++)
+    {
+        if(strcmp(arr[i].nguoigui,x)==0)
+		{
+			printf("%d",arr[i].ma);
+            dem = 1;
+    	}
+	}
+	if(dem == 0)
+	{
+		printf("Not Found\n");	
+	}
+}
+int main() {
+	int n;
+	do{
+		scanf("%d",&n);
+		getchar();
+	}while(n < 1 || n > 100);
+	BK arr[n];
+    NhapCT(arr,n);
+    char x[50];
+    fgets(x,50,stdin);
+    if(x[strlen(x)-1]=='\n')
+		x[strlen(x)-1]='\0';
+    Xoa(arr,n,x);
+    //XuatCT(arr,n);
+    return 0;
+}
+
