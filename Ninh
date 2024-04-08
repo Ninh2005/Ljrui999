@@ -1,82 +1,55 @@
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
-#include <stdlib.h>
-struct Date{
-  int day,month,year;  
-};
-struct BuuKien{
-  	int ma;
-    char nguoigui[50];
-    char nguoinhan[50];
-    float trongluong;
-    Date date;
-    char noidung[100];
-    int gia;
-};
-typedef BuuKien BK;
-
-void NhapCT(BK arr[], int n)
+bool Ktra(int x)
 {
-	for(int i=0;i<n;i++)
-	{
-    scanf("%d",&arr[i].ma);
-    getchar();
-    fgets(arr[i].nguoigui,50,stdin);
-    if(arr[i].nguoigui[strlen(arr[i].nguoigui)-1]=='\n')
-        arr[i].nguoigui[strlen(arr[i].nguoigui)-1]='\0';
-    fgets(arr[i].nguoinhan,50,stdin);
-    if(arr[i].nguoinhan[strlen(arr[i].nguoinhan)-1]=='\n')
-        arr[i].nguoinhan[strlen(arr[i].nguoinhan)-1]='\0';
-	scanf("%f",&arr[i].trongluong);
-    getchar();
-   	scanf("%d %d %d", &arr[i].date.day, &arr[i].date.month, &arr[i].date.year);
-	getchar();
-    fgets(arr[i].noidung,100,stdin);
-    if(arr[i].noidung[strlen(arr[i].noidung)-1]=='\n')
-        arr[i].noidung[strlen(arr[i].noidung)-1]='\0';
-    scanf("%d",&arr[i].gia);
-    getchar(); }
-}
-bool TimKiem(BK arr[], int n)
-{
-    for(int i=0;i<n;i++)
+    if(x<2) return false;
+    for(int i=2;i<=sqrt(x);i++)
     {
-        if(arr[i].date.month == 1 && arr[i].date.year == 2023)
+        if(x%i==0) return false;
+    }
+    return true;
+}
+void NhapMatrix(int matrix[][100], int row,int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
         {
-            return true;
+            scanf("%d",&matrix[i][j]);
         }
     }
-    return false;
 }
-void XuatCT(BK arr[], int n)
+void dem(int matrix[][100], int row, int column )
 {
-    int dem = 0;
-    for(int i = 0; i < n; i++)
+    int dem=0;
+    int bot = 0;
+    for(int i=0;i<row;i++)
     {
-        if(arr[i].date.month == 1 && arr[i].date.year == 2023)
+        for(int j=0;j<column;j++)
         {
-            printf("%d - %s - %s - %.2f - %d/%d/%d - %s - %d\n", arr[i].ma, arr[i].nguoigui, arr[i].nguoinhan,
-                   arr[i].trongluong, arr[i].date.day, arr[i].date.month, arr[i].date.year, arr[i].noidung,
-                   arr[i].gia);
-            dem++;
+            if(Ktra(matrix[i][j]))
+            {
+                dem++;
+                bot = 1;
+            }
         }
     }
-    if(dem == 0)
-    {
-        printf("Not Found");
-    }
+    if(bot == 0)
+        printf("None");
+    else printf("%d", dem);
 }
 
-int main() {
-	int n;
-	do{
-		scanf("%d",&n);
-		getchar();
-	}while(n < 1 || n > 100);
-	BK arr[n];
-    NhapCT(arr,n);
-    XuatCT(arr,n);
-    return 0;
+int main()
+{
+    int row,column;
+    do{
+        scanf("%d",&row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    dem(matrix,row,column);
+	return 0;
 }
-
