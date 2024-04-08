@@ -53,3 +53,343 @@ int main()
     dem(matrix,row,column);
 	return 0;
 }
+
+
+
+
+
+#include <stdio.h>
+
+void NhapMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+int Tong(int matrix[][100], int row, int column)
+{
+    int max = -1;
+    for(int i=0;i<row;i++)
+    {
+        int sum =0;
+        for(int j=0;j<column;j++)
+        {
+            sum +=matrix[i][j];
+        }
+        if(sum > max)
+        {
+            max = sum;
+        }
+    }
+    return max;
+}
+int main()
+{
+    int row,column;
+    do{
+        scanf("%d",&row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    printf("%d", Tong(matrix,row,column));
+    return 0;
+}
+
+
+
+
+
+
+#include <stdio.h>
+void NhapMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+float TB (int matrix[][100], int row, int column)
+{
+    int  sum = 0;
+    int dem = 0;
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            sum+=matrix[i][j];
+            dem++;
+        }
+    }
+    float res = (float)sum/dem;
+    return res;
+}
+int main() {
+  	int row, column;
+    do{
+        scanf("%d",&row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    printf("%.2f", TB(matrix,row,column));
+    return 0;
+}
+
+
+
+
+#include <stdio.h>
+
+void NhapMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+
+int MAX(int matrix[][100], int row, int column)
+{
+    int max = 0;
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            if(matrix[i][j]>max)
+            {
+                max = matrix[i][j];
+            }
+        }
+    }
+    return max;
+}
+int Dem(int matrix[][100], int row, int column)
+{
+    int dem = 0;
+    int res = MAX(matrix,row,column);
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            if(matrix[i][j]==res)
+            {
+                dem++;
+            }
+        }
+    }
+    return dem;
+}
+int main()
+{
+    int row,column;
+    do{
+        scanf("%d", &row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    printf("%d\n",MAX(matrix,row,column));
+    printf("%d", Dem(matrix,row,column));
+    return 0;
+}
+
+
+
+
+
+
+#include <stdio.h>
+
+void NhapMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+
+void TongCot(int matrix[][100], int row, int column)
+{
+    for(int j=0;j<column;j++)
+    {
+        int sum = 0;
+        for(int i=0;i<row;i++)
+        {
+            sum+=matrix[i][j];
+        }
+        printf("%d\n",sum);
+    }
+}
+int main()
+{
+    int row, column;
+    do{
+        scanf("%d",&row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    TongCot(matrix,row,column);
+    return 0;
+}
+
+
+
+
+
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+void NhapMatrix(int matrix[][100],int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+bool SNT(int x)
+{
+    if(x<2) return false;
+    for(int i=2;i<=sqrt(x);i++)
+    {
+        if(x%i==0)
+            return false;
+    }
+    return true;
+}
+
+int MAX(int matrix[][100], int row, int column)
+{
+    int bot = 0;
+    int dong = 0;
+	int max = -1;    
+    for(int i=0;i<row;i++)
+    {
+        int dem =0;
+        for(int j=0;j<column;j++)
+        {
+            if(SNT(matrix[i][j]))
+            {
+                dem++;
+                bot = 1;
+            }
+        }
+        if(dem > max)
+        {
+            max = dem;
+            dong = i;
+        }
+    }
+    if(bot ==0)
+    {
+        printf("None");
+        return -1;
+    }
+    return dong;
+}
+
+int main()
+{
+	int row, column;
+    do{
+        scanf("%d",&row);
+    }while(row<=0);
+    do{
+        scanf("%d",&column);
+    }while(column>100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+  	int res =MAX(matrix,row,column);
+    if(res>-1)
+    {
+        printf("%d", res);
+    }
+	return 0;
+}
+
+
+
+
+
+
+
+
+#include <stdio.h>
+
+void NhapMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+
+void Giam(int matrix[][100], int row, int column)
+{
+    for (int i = 0; i < row; i++) {
+        for (int j = 1; j < column; j++) {
+            int key = matrix[i][j];
+            int k = j - 1;
+            while (k >= 0 && matrix[i][k] < key) {
+                matrix[i][k + 1] = matrix[i][k];
+                k--;
+            }
+            matrix[i][k + 1] = key;
+        }
+    }
+}
+
+void XuatMatrix(int matrix[][100], int row, int column)
+{
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<column;j++)
+        {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+int main()
+{
+    int row, column;
+    do{
+        scanf("%d", &row);
+    }while(row<=0);
+    do{
+        scanf("%d", &column);
+    }while(column > 100);
+    int matrix[100][100];
+    NhapMatrix(matrix,row,column);
+    Giam(matrix,row,column);
+    XuatMatrix(matrix,row,column);
+    return 0;
+}
